@@ -111,4 +111,4 @@ done
 sort $url/recon/final.txt | uniq -u > $url/recon/subs.txt
 sort $url/recon/gowitness/alive.txt | uniq -u > $url/recon/urls.txt
 
-gowitness file -f $url/recon/gowitness/alive.txt -d $url/recon/gowitness/
+gowitness file -f $url/recon/gowitness/alive.txt -P $url/recon/gowitness/

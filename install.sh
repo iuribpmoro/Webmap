@@ -29,6 +29,7 @@ zshrc=0
 goInstalled=0
 gobusterInstalled=0
 gowitnessInstalled=0
+chromeInstalled=0
 assetfinderInstalled=0
 amassInstalled=0
 httprobeInstalled=0
@@ -77,6 +78,17 @@ checkGowitness () {
         echo -e "gowitness\t${emojiCheck}"
     else
         echo -e "gowitness\t${emojiCross}"
+    fi
+}
+
+checkChrome () {
+    if command -v google-chrome &> /dev/null
+    then
+        chromeInstalled=1
+        
+        echo -e "Google Chrome\t${emojiCheck}"
+    else
+        echo -e "Google Chrome\t${emojiCross}"
     fi
 }
 
@@ -141,6 +153,7 @@ checkTools () {
     checkGo
     checkGobuster
     checkGowitness
+    checkChrome
     checkAssetfinder
     checkAmass
     checkHttprobe
@@ -217,6 +230,21 @@ installGowitness () {
         echo -e "${green}${bold}Gowitness installed successfully!\n${reset}"
     else
         echo -e "${red}${bold}Gowitness could not be installed!\n${reset}"
+        exit
+    fi
+}
+
+installChrome () {
+    echo "${bold}Installing Google Chrome...${reset}"
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    sudo apt install ./google-chrome-stable_current_amd64.deb
+
+    commandResult=$?
+
+    if [ commandResult ]; then
+        echo -e "${green}${bold}Google Chrome installed successfully!\n${reset}"
+    else
+        echo -e "${red}${bold}Google Chrome could not be installed!\n${reset}"
         exit
     fi
 }
@@ -306,6 +334,10 @@ installTools () {
 
     if [ $gowitnessInstalled -ne 1 ]; then
         installGowitness
+    fi
+
+    if [ $chromeInstalled -ne 1 ]; then
+        installChrome
     fi
 
     if [ $assetfinderInstalled -ne 1 ]; then
