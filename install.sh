@@ -340,7 +340,7 @@ checkTools
 
 checkShell
 
-if [ $goInstalled -eq 1 && $gobusterInstalled -eq 1 && $gowitnessInstalled -eq 1 && $assetfinderInstalled -eq 1 && $amassInstalled -eq 1 && $httprobeInstalled -eq 1 && $subjackInstalled -eq 1 && $waybackInstalled -eq 1 ]; then
+if [ $goInstalled -eq 1 ] && [ $gobusterInstalled -eq 1 ] && [ $gowitnessInstalled -eq 1 ] && [ $assetfinderInstalled -eq 1 ] && [ $amassInstalled -eq 1 ] && [ $httprobeInstalled -eq 1 ] && [ $subjackInstalled -eq 1 ] && [ $waybackInstalled -eq 1 ]; then
     genericSuccess
 fi
 
