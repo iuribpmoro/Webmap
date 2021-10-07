@@ -129,9 +129,9 @@ checkWaybackurls () {
     then
         waybackurlsInstalled=1
         
-        echo -e "waybackurls\t\t${emojiCheck}"
+        echo -e "waybackurls\t${emojiCheck}"
     else
-        echo -e "waybackurls\t\t${emojiCross}"
+        echo -e "waybackurls\t${emojiCross}"
     fi
 }
 
