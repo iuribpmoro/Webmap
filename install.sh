@@ -340,7 +340,7 @@ checkTools
 
 checkShell
 
-if [ $goInstalled -eq 1 -a $gobusterInstalled -eq 1 ]; then
+if [ $goInstalled -eq 1 -a $gobusterInstalled -eq 1 -a $gowitnessInstalled -eq 1 -a $assetfinderInstalled -eq 1 -a $amassInstalled -eq 1 -a $httprobeInstalled -eq 1 -a $subjackInstalled -eq 1 -a $waybackInstalled -eq 1 ]; then
     genericSuccess
 fi
 
