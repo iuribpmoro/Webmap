@@ -108,4 +108,7 @@ for line in $(cat $url/recon/final.txt);do
 	curl --head --silent --location --output /dev/null --write-out "%{url_effective}\n" $line >> $url/recon/gowitness/alive.txt
 done
 
-gowitness file -s $url/recon/gowitness/alive.txt -d $url/recon/gowitness/
+sort $url/recon/final.txt | uniq -u > $url/recon/subs.txt
+sort $url/recon/gowitness/alive.txt | uniq -u > $url/recon/urls.txt
+
+gowitness file -f $url/recon/gowitness/alive.txt -d $url/recon/gowitness/
