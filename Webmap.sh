@@ -1,6 +1,113 @@
-#!/bin/bash	
+#!/bin/bash
 
-url=$1
+# ----------------------------- Color definition ----------------------------- #
+
+black=`tput setaf 0`
+red=`tput setaf 1`
+green=`tput setaf 2`
+yellow=`tput setaf 3`
+blue=`tput setaf 4`
+magenta=`tput setaf 5`
+cyan=`tput setaf 6`
+white=`tput setaf 7`
+bold=`tput bold`
+reset=`tput sgr0`
+
+randomColorNumber=$((0 + $RANDOM % 7))
+randomColor=`tput setaf ${randomColorNumber}`
+
+# ------------------------------- Generic error ------------------------------ #
+
+genericError () {
+    echo -e "${red}${bold}\nError while running the script! Exiting...${reset}\n"
+    exit
+}
+
+# ------------------------------- Print banner ------------------------------- #
+
+printBanner () {
+    echo -e "\n${randomColor}${bold}"
+
+	echo -e " __      __      ___.                          "
+	echo -e "/  \    /  \ ____\_ |__   _____ _____  ______  "
+	echo -e "\   \/\/   // __ \| __ \ /     \\__  \ \____ \ "
+	echo -e " \        /\  ___/| \_\ \  Y Y  \/ __ \|  |_> >"
+	echo -e "  \__/\  /  \___  >___  /__|_|  (____  /   __/ "
+	echo -e "       \/       \/    \/      \/     \/|__|    "
+    echo -e "\n${reset}"
+}
+
+# -------------------------------- Print help -------------------------------- #
+
+printHelp () {
+    
+    echo -e "${bold}Usage: ${reset}./Webmap.sh <HOST> <WORDLIST> [options]"
+	echo -e "${bold}Example: ${reset}./Webmap.sh myserver.com.br ./wordlists/large-directories.txt"
+    echo -e "\n"
+
+    echo -e "\n${bold}Available Options: ${reset}"
+    echo -e "\tNo options available at the moment!"
+	# echo -e "\t-n: specifies number of ports to scan"
+
+    echo -e "\n"
+}
+
+# -------------------------------- Check Tools ------------------------------- #
+
+checkTools () {
+    if ! command -v nmap &> /dev/null
+    then
+        echo -e "${bold}Nmap was not found in the system!\nExiting...${reset}\n"
+        exit
+    elif ! command -v go &> /dev/null
+    then
+        echo -e "${bold}Go was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v gobuster &> /dev/null
+    then
+        echo -e "${bold}Gobuster was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v gowitness &> /dev/null
+    then
+        echo -e "${bold}Gowitness was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v google-chrome &> /dev/null
+    then
+        echo -e "${bold}Google Chrome was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v assetfinder &> /dev/null
+    then
+        echo -e "${bold}Assetfinder was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v amass &> /dev/null
+    then
+        echo -e "${bold}Amass was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v httprobe &> /dev/null
+    then
+        echo -e "${bold}Httprobe was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v subjack &> /dev/null
+    then
+        echo -e "${bold}Subjack was not found in the system!\nExiting...${reset}\n"
+        exit
+	elif ! command -v waybackurls &> /dev/null
+    then
+        echo -e "${bold}Waybackurls was not found in the system!\nExiting...${reset}\n"
+        exit
+    fi
+
+}
+
+lineUp () {
+    
+    numberOfLines=$1
+
+    for ((i=0;i<numberOfLines;i++)); do
+        tput cuu1
+    done
+    
+}
 
 createDirectories() {
 	if [ ! -d "$url" ];then
@@ -128,10 +235,66 @@ sortSubsResult() {
 	sort $url/recon/gowitness/alive.txt | uniq -u > $url/recon/urls.txt
 }
 
-createDirectories
-getSubs
-checkSubs
-scanServers
-subsWayback
-screenshotSubs
-sortSubsResult
+webmapSetup() {
+	checkTools
+	createDirectories
+}
+
+subsEnumeration() {
+	getSubs
+	checkSubs
+	scanServers
+	subsWayback
+	screenshotSubs
+	sortSubsResult
+}
+
+# if [ "$1" == "" -o "$2" == "" -o "$3" == "" ]
+
+if [ "$1" == "" ]
+then
+    printBanner
+
+    printHelp
+
+else
+    
+    url=$1;
+
+	printBanner
+	
+	# shift
+    # target=$1; shift
+    # wordlistPath=$1; shift
+
+    # while getopts ":n:" opt; do
+    #     case ${opt} in
+    #         n ) numberOfPorts=$OPTARG
+    #         ;;
+    #         \? ) printHelp
+    #         ;;
+    #         : )
+    #         echo "Invalid option: $OPTARG requires an argument" 1>&2
+    #         ;;
+    #     esac
+    # done
+    # shift $((OPTIND -1))
+
+    # if [ "$mode" == "host" ]
+    # then
+
+    #     hostScan $target $wordlistPath $numberOfPorts
+
+    # elif [ "$mode" == "network" ]
+    # then
+
+    #     networkScan $target $wordlistPath $numberOfPorts
+
+    # fi
+
+	webmapSetup
+	subsEnumeration
+
+fi
+
+
