@@ -233,6 +233,8 @@ screenshotSubs() {
 sortSubsResult() {
 	sort -u $url/recon/final.txt > $url/recon/subs.txt
 	sort -u $url/recon/gowitness/alive.txt > $url/recon/urls.txt
+	rm $url/recon/final.txt
+	rm $url/recon/gowitness/alive.txt
 }
 
 webmapSetup() {
