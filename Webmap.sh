@@ -231,8 +231,8 @@ screenshotSubs() {
 }
 
 sortSubsResult() {
-	sort $url/recon/final.txt | uniq -u > $url/recon/subs.txt
-	sort $url/recon/gowitness/alive.txt | uniq -u > $url/recon/urls.txt
+	sort -u $url/recon/final.txt > $url/recon/subs.txt
+	sort -u $url/recon/gowitness/alive.txt > $url/recon/urls.txt
 }
 
 webmapSetup() {
