@@ -4,7 +4,6 @@ subsList=$1
 aliveSubsFilename="aliveSubs.txt"
 
 httpx -list $subsList -silent -o $aliveSubsFilename
-gowitness file -f $aliveSubsFilename
 
 for sub in $(cat $aliveSubsFilename);do
         parsedSub=$(echo $sub | cut -d "/" -f3)
