@@ -16,7 +16,7 @@ for sub in $(cat $aliveSubsFilename);do
 
         cat $parsedSub/katana-tmp.txt | anew $parsedSub/finalUrls.txt
         cat $parsedSub/wayback-tmp.txt | anew $parsedSub/finalUrls.txt
-        cat $parsedSub/finalUrls.txt | grep -Ev "jpg|jpeg|png|svg|ico|mp4" > $parsedSubs/filteredUrls.txt
+        cat $parsedSub/finalUrls.txt | grep -Ev "jpg|jpeg|png|svg|ico|mp4" > $parsedSub/filteredUrls.txt
 
         gowitness file -f $parsedSub/filteredUrls.txt
 done
